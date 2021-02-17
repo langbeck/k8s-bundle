@@ -22,23 +22,14 @@ spec:
           mountPath: /opt/spire/conf/agent
           readOnly: true
 
-        - name: spire-agent-credentials
-          mountPath: /run/spire/credentials
-          readOnly: true
-
         - name: spire-agent-socket
           mountPath: /run/spire/sockets
           readOnly: false
 
   volumes:
-    - name: spire-agent-credentials
-      hostPath:
-        path: /tmp/spire-creds
-        type: Directory
-
     - name: spire-agent-config
       hostPath:
-        path: /bundle/spire/conf/agent
+        path: /node-bundle/spire/conf/agent
         type: Directory
 
     - name: spire-agent-socket
