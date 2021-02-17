@@ -27,7 +27,7 @@ spire_conf_dir="${rootfs_dir}/node-bundle/spire/conf"
 ## Prepare essential folders and resources
 mkdir -p "${spire_conf_dir}"
 cp -r "spire/conf/agent" "${spire_conf_dir}"
-envsubst < "spire/conf/agent/agent.conf" > "${spire_conf_dir}/agent.conf"
+envsubst < "spire/conf/agent/agent.conf" > "${spire_conf_dir}/agent/agent.conf"
 
 mkdir -p "${kubernetes_dir}/manifests" "${kubernetes_dir}/pki"
 cp "kubernetes/manifests/spire-agent.yaml" "${kubernetes_dir}/manifests/"
