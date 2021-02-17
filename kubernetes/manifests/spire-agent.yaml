@@ -23,7 +23,7 @@ spec:
           readOnly: true
 
         - name: spire-agent-socket
-          mountPath: /run/spire/sockets
+          mountPath: /tmp
           readOnly: false
 
   volumes:
@@ -34,5 +34,5 @@ spec:
 
     - name: spire-agent-socket
       hostPath:
-        path: /run/spire/sockets
-        type: DirectoryOrCreate
+        path: /tmp
+        type: Directory
