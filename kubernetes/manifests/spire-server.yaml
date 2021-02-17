@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: kube-system
+  name: spire-server
+  labels:
+    component: spire-server
+    tier: control-plane
+spec:
+  priorityClassName: system-node-critical
+  hostNetwork: true
+  hostPID: true
+  containers:
+    - name: spire-server
+      image: gcr.io/spiffe-io/spire-server:0.10.0
+      imagePullPolicy: IfNotPresent
+
+      volumeMounts:
+        - name: spire-server-config
+          mountPath: /opt/spire/conf/server
+          readOnly: true
+
+        - name: spire-server-socket
+          mountPath: /run/spire/sockets
+          readOnly: false
+
+  volumes:
+    - name: spire-server-config
+      hostPath:
+        path: /bundle/spire/conf/server
+        type: Directory
+
+    - name: spire-server-socket
+      hostPath:
+        path: /run/spire/sockets
+        type: DirectoryOrCreate
