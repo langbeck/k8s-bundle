@@ -8,3 +8,7 @@ echo >&2 "Provisioning spire-agent credentials..."
 echo >&2 "Copying spire manifests..."
 rm -f /etc/kubernetes/manifests/spire-*.yaml
 cp kubernetes/manifests/spire-*.yaml /etc/kubernetes/manifests/
+
+echo >&2 "Copying spire-authn-proxy kubeconfig..."
+rm -f /etc/kubernetes/upstream.conf
+cp kubernetes/upstream.conf /etc/kubernetes/upstream.conf
