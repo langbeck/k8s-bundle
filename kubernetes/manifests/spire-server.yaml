@@ -21,7 +21,7 @@ spec:
           readOnly: true
 
         - name: spire-server-socket
-          mountPath: /run/spire/sockets
+          mountPath: /tmp
           readOnly: false
 
   volumes:
@@ -32,5 +32,5 @@ spec:
 
     - name: spire-server-socket
       hostPath:
-        path: /run/spire/sockets
-        type: DirectoryOrCreate
+        path: /tmp
+        type: Directory
