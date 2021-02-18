@@ -49,7 +49,7 @@ clusters:
 - name: kubernetes
   cluster:
     certificate-authority-data: ${CA_DATA}
-    server: https://${SERVER_ADDRESS}:5443/
+    server: https://$(hostname):5443/
 
 current-context: system:node:${node_name}@kubernetes
 contexts:
