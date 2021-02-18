@@ -33,12 +33,10 @@ done
 agent_list | awk '/^Spiffe ID/ { print $4 }' | while read parentID; do
     node_name=$(agent_show -spiffeID "${parentID}" | sed -nr 's/^Selectors +: +x509pop:subject:cn:(.*)$/\1/p')
     echo ${node_name}
-    if [ "${node_name}" = "matrix" ]; then
-
+    if [ "${node_name}" = "$(hostname)" ]; then
         spiffeID="spiffe://example.org/k8s-proxy"
         entry_create -parentID "${parentID}" -spiffeID "${spiffeID}"        \
-            -selector "unix:path:/tmp/kube-spire-proxy"                     \
-            -dns "matrix"
+            -selector "unix:path:/usr/bin/authn-proxy"
 
         spiffeID="spiffe://example.org/k8s-user/kubernetes-admin/system:masters"
         entry_create -parentID "${parentID}" -spiffeID "${spiffeID}"        \
