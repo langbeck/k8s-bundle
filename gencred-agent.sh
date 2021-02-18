@@ -9,10 +9,9 @@ fi
 
 node_name="${1}"
 
-SERVER_URL=$(kubectl config view -o jsonpath='{.clusters[0].cluster.server}')
-
 ## Resolve and export server address
-SERVER_ADDRESS=${SERVER_URL#https://}
+SERVER_ADDRESS=$(kubectl config view -o jsonpath='{.clusters[0].cluster.server}')
+SERVER_ADDRESS=${SERVER_ADDRESS#https://}
 SERVER_ADDRESS=${SERVER_ADDRESS//:*/}
 export SERVER_ADDRESS
 
@@ -50,7 +49,7 @@ clusters:
 - name: kubernetes
   cluster:
     certificate-authority-data: ${CA_DATA}
-    server: ${SERVER_URL}
+    server: https://${SERVER_ADDRESS}:5443/
 
 current-context: system:node:${node_name}@kubernetes
 contexts:
