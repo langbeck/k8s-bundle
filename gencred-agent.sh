@@ -41,7 +41,7 @@ cp "/bundle/spire-authn-plugin.sh" "${node_bundle_dir}/spire-authn-plugin.sh"
 
 ## Generate kubelet config
 CA_DATA=$(base64 -w0 "/bundle/spire/conf/server/dummy_upstream_ca.crt")
-cat <<EOF > ${rootfs_path}/etc/kubernetes/kubelet.conf
+cat <<EOF > ${rootfs_dir}/etc/kubernetes/kubelet.conf
 apiVersion: v1
 kind: Config
 
