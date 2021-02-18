@@ -4,7 +4,7 @@ set -e -o pipefail
 output_dir=$(mktemp -d)
 trap 'rm -rf ${output_dir}' EXIT INT TERM
 
-spire-agent api fetch x509 -write "${output_dir}"
+/opt/spire/bin/spire-agent api fetch x509 -write "${output_dir}" > /dev/null
 
 certificate_data=$(awk '{printf $0"\\n"}' "${output_dir}/svid.0.pem")
 key_data=$(awk '{printf $0"\\n"}' "${output_dir}/svid.0.key")
