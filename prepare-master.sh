@@ -7,5 +7,4 @@ echo >&2 "Provisioning spire-agent credentials..."
 
 echo >&2 "Copying spire manifests..."
 rm -f /etc/kubernetes/manifests/spire-*.yaml
-cp kubernetes/manifests/spire-server.yaml /etc/kubernetes/manifests/
-cp kubernetes/manifests/spire-agent.yaml /etc/kubernetes/manifests/
+cp kubernetes/manifests/spire-*.yaml /etc/kubernetes/manifests/
