@@ -37,14 +37,9 @@ agent_list | awk '/^Spiffe ID/ { print $4 }' | while read parentID; do
         spiffeID="spiffe://example.org/k8s-proxy"
         entry_create -parentID "${parentID}" -spiffeID "${spiffeID}"        \
             -selector "unix:path:/usr/bin/authn-proxy"
-
-        spiffeID="spiffe://example.org/k8s-user/kubernetes-admin/system:masters"
-        entry_create -parentID "${parentID}" -spiffeID "${spiffeID}"        \
-            -selector "unix:path:/tmp/kube-spire-plugin"
-        continue
     fi
 
     spiffeID="spiffe://example.org/k8s-user/system:node:${node_name}/system:nodes"
     entry_create -parentID "${parentID}" -spiffeID "${spiffeID}"        \
-        -selector "unix:path:/vagrant/extras/plugin/kube-spire-plugin"
+        -selector "unix:path:/opt/spire/bin/spire-agent"
 done
