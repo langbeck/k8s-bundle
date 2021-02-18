@@ -11,4 +11,5 @@ cp kubernetes/manifests/spire-*.yaml /etc/kubernetes/manifests/
 
 echo >&2 "Copying spire-authn-proxy kubeconfig..."
 rm -f /etc/kubernetes/upstream.conf
-cp kubernetes/upstream.conf /etc/kubernetes/upstream.conf
+export SERVER_ADDRESS=$(hostname -i)
+envsubst < kubernetes/upstream.conf > /etc/kubernetes/upstream.conf
