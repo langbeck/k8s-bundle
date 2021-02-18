@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: kube-system
+  name: spire-authn-proxy
+  labels:
+    component: spire-authn-proxy
+    tier: control-plane
+spec:
+  priorityClassName: system-node-critical
+  hostNetwork: true
+  hostPID: true
+  containers:
+    - name: spire-authn-proxy
+      image: langbeck/kube-spire-proxy:latest
+      imagePullPolicy: IfNotPresent
+      args:
+        - -kubeconfig
+        - /opt/spire/conf/proxy/upstream.conf
+      volumeMounts:
+        - name: spire-authn-proxy-config
+          mountPath: /opt/spire/conf/proxy
+          readOnly: true
+
+        - name: spire-agent-socket
+          mountPath: /tmp/agent.sock
+          readOnly: false
+
+  volumes:
+    - name: spire-authn-proxy-config
+      hostPath:
+        path: /node-bundle/spire/conf/proxy
+        type: Directory
+
+    - name: spire-agent-socket
+      hostPath:
+        path: /tmp/agent.sock
+        type: Socket
