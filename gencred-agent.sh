@@ -81,11 +81,13 @@ openssl x509 -req -CAcreateserial                       \
     -days 3650
 
 
-fingerprint=$(openssl x509 -in "${spire_conf_dir}/agent/x509pop_user.crt" -outform DER | sha1sum | awk '{print $1}')
-parentID="spiffe://example.org/spire/agent/x509pop/${fingerprint}"
-spiffeID="spiffe://example.org/k8s-user/system:node:${node_name}/system:nodes"
-spire-server entry create -parentID "${parentID}" -spiffeID "${spiffeID}"        \
-    -selector "unix:path:/opt/spire/bin/spire-agent"
+(
+    fingerprint=$(openssl x509 -in "${spire_conf_dir}/agent/x509pop_user.crt" -outform DER | sha1sum | awk '{print $1}')
+    parentID="spiffe://example.org/spire/agent/x509pop/${fingerprint}"
+    spiffeID="spiffe://example.org/k8s-user/system:node:${node_name}/system:nodes"
+    spire-server entry create -parentID "${parentID}" -spiffeID "${spiffeID}"        \
+        -selector "unix:path:/opt/spire/bin/spire-agent"
+) > /dev/null
 
 ## Create provisioning bundle
 tar -czC "${rootfs_dir}" . | base64 -w0
