@@ -36,7 +36,8 @@ agent_list | awk '/^Spiffe ID/ { print $4 }' | while read parentID; do
     if [ "${node_name}" = "$(hostname)" ]; then
         spiffeID="spiffe://example.org/k8s-proxy"
         entry_create -parentID "${parentID}" -spiffeID "${spiffeID}"        \
-            -selector "unix:path:/usr/bin/authn-proxy"
+            -selector "unix:path:/usr/bin/authn-proxy"                      \
+            -dns "${node_name}"
     fi
 
     spiffeID="spiffe://example.org/k8s-user/system:node:${node_name}/system:nodes"
