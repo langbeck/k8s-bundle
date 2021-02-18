@@ -18,7 +18,7 @@ spec:
         - -kubeconfig
         - /opt/spire/conf/proxy/upstream.conf
       volumeMounts:
-        - name: spire-authn-proxy-config
+        - name: spire-proxy-config
           mountPath: /opt/spire/conf/proxy
           readOnly: true
 
@@ -27,7 +27,7 @@ spec:
           readOnly: false
 
   volumes:
-    - name: spire-authn-proxy-config
+    - name: spire-proxy-config
       hostPath:
         path: /node-bundle/spire/conf/proxy
         type: Directory
