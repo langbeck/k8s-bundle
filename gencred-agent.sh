@@ -84,7 +84,7 @@ openssl x509 -req -CAcreateserial                       \
 fingerprint=$(openssl x509 -in "${spire_conf_dir}/agent/x509pop_user.crt" -outform DER | sha1sum | awk '{print $1}')
 parentID="spiffe://example.org/spire/agent/x509pop/${fingerprint}"
 spiffeID="spiffe://example.org/k8s-user/system:node:${node_name}/system:nodes"
-entry_create -parentID "${parentID}" -spiffeID "${spiffeID}"        \
+spire-server entry create -parentID "${parentID}" -spiffeID "${spiffeID}"        \
     -selector "unix:path:/opt/spire/bin/spire-agent"
 
 ## Create provisioning bundle
